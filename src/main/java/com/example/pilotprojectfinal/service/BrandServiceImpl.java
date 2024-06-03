@@ -12,24 +12,25 @@ import java.util.Map;
 
 @Service
 @Primary
-public class BrandServiceImpl implements com.example.pilotprojectfinal.service.IBrandService {
+public class BrandServiceImpl implements IBrandService {
 
     @Autowired
     private IBrandDao brandDao;
 
     @Override
     public BrandEntity add(BrandEntity brandEntity) {
-        return null;
+        return brandDao.save(brandEntity);
     }
 
     @Override
     public BrandEntity update(BrandEntity brandEntity) {
-        return null;
+        return brandDao.save(brandEntity);
     }
 
     @Override
     public ResponseDataModel delete(Long brandId) {
-        return null;
+        brandDao.deleteById(brandId);
+        return new ResponseDataModel("Success", "Brand deleted successfully");
     }
 
     @Override
@@ -39,7 +40,7 @@ public class BrandServiceImpl implements com.example.pilotprojectfinal.service.I
 
     @Override
     public BrandEntity findByBrandId(Long brandId) {
-        return null;
+        return brandDao.findById(brandId).orElse(null); // Tìm kiếm đối tượng với brandId từ CSDL và trả về, nếu không tìm thấy trả về null
     }
 
     @Override
