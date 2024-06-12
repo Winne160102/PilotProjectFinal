@@ -5,7 +5,7 @@ public class ResponseDataModel {
     private String responseMsg;
     private Object data;
 
-    public ResponseDataModel(String success, String brand_deleted_successfully) {
+    public ResponseDataModel() {
 
     }
 

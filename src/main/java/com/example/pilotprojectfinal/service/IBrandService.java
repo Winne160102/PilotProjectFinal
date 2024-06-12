@@ -3,13 +3,13 @@ package com.example.pilotprojectfinal.service;
 import com.example.pilotprojectfinal.entity.BrandEntity;
 import com.example.pilotprojectfinal.model.ResponseDataModel;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Map;
 
 @Service
 public interface IBrandService {
-
     BrandEntity add(BrandEntity brandEntity);
 
     BrandEntity update(BrandEntity brandEntity);
