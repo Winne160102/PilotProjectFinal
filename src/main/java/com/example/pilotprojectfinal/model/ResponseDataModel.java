@@ -43,6 +43,4 @@ public class ResponseDataModel {
     public void setData(Object data) {
         this.data = data;
     }
-
-
 }

@@ -23,7 +23,6 @@ $(document).ready(function(){
 		var keyword = $('.search-brand').val().toLowerCase();
 		var pagerNumber = $(this).attr("data-index");
 		findBrandByBrandName(keyword,1);
-	
 	});
 	
 	

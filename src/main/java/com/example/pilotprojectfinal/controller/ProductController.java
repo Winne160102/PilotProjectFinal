@@ -1,8 +1,8 @@
 package com.example.pilotprojectfinal.controller;
 
-import com.example.pilotprojectfinal.entity.BrandEntity;
+import com.example.pilotprojectfinal.entity.ProductEntity;
 import com.example.pilotprojectfinal.model.ResponseDataModel;
-import com.example.pilotprojectfinal.service.IBrandService;
+import com.example.pilotprojectfinal.service.IProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -10,52 +10,52 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @Controller
-@RequestMapping("/brand")
-public class BrandController {
+@RequestMapping("/product")
+public class ProductController {
 
     @Autowired
-    @Qualifier("brandServiceImpl")
-    private IBrandService brandService;
+    @Qualifier("productServiceImpl")
+    private IProductService productService;
 
     @GetMapping
     public String initPage(Model model) {
-        return "brand-index";
+        return "product-index";
     }
 
     @GetMapping("/api/findAll/{pageNumber}")
     @ResponseBody
     public ResponseDataModel findAllWithPagerApi(@PathVariable("pageNumber") int pageNumber) {
-        return brandService.findAllWithPagerApi(pageNumber);
+        return productService.findAllWithPagerApi(pageNumber);
     }
 
     @GetMapping("/api/findAll")
     @ResponseBody
-    public ResponseDataModel findBrandByIdApi(@RequestParam("id") Long brandId) {
-        return brandService.findBrandByIdApi(brandId);
+    public ResponseDataModel findProductByIdApi(@RequestParam("id") Long productId) {
+        return productService.findProductByIdApi(productId);
     }
 
     @PostMapping(value="/api/add")
     @ResponseBody
-    public ResponseDataModel addApi(@ModelAttribute BrandEntity brandEntity) {
-        return brandService.addApi(brandEntity);
+    public ResponseDataModel addApi(@ModelAttribute ProductEntity productEntity) {
+        return productService.addApi(productEntity);
     }
 
     @PostMapping(value ="/api/update")
     @ResponseBody
-    public ResponseDataModel updateApi(@ModelAttribute BrandEntity brandEntity) {
-        return brandService.updateApi(brandEntity);
+    public ResponseDataModel updateApi(@ModelAttribute ProductEntity productEntity) {
+        return productService.updateApi(productEntity);
     }
 
-    @DeleteMapping(value ="/api/delete/{brandId}")
+    @DeleteMapping(value ="/api/delete/{productId}")
     @ResponseBody
-    public ResponseDataModel deleteApi(@PathVariable("brandId") Long brandId) {
-        return brandService.deleteApi(brandId);
+    public ResponseDataModel deleteApi(@PathVariable("productId") Long productId) {
+        return productService.deleteApi(productId);
     }
 
     @GetMapping(value = { "/api/search/{keyword}/{pageNumber}" })
     @ResponseBody
     public ResponseDataModel searchApi(@PathVariable("keyword") String keyword,
                                        @PathVariable("pageNumber") int pageNumber) {
-        return brandService.search(pageNumber, keyword);
+        return productService.search(pageNumber, keyword);
     }
 }

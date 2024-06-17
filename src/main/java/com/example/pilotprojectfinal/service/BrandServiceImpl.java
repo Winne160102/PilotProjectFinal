@@ -112,7 +112,7 @@ public class BrandServiceImpl implements IBrandService {
 
     @Override
     public BrandEntity findByBrandId(Long brandId) {
-        return null;
+        return brandDao.findByBrandId(brandId);
     }
 
     @Override
@@ -151,7 +151,7 @@ public class BrandServiceImpl implements IBrandService {
     @Override
     public ResponseDataModel findAllWithPagerApi(int pageNumber) {
         int responseCode = Constant.RESULT_CD_FAIL;
-        String responseMsg = StringUtils.EMPTY;
+         String responseMsg = StringUtils.EMPTY;
         Map<String, Object> responseMap = new HashMap<>();
         try {
             Sort sortInfo = Sort.by(Sort.Direction.ASC, "brandId");
@@ -267,6 +267,22 @@ public class BrandServiceImpl implements IBrandService {
 
     @Override
     public ResponseDataModel search(int pageNumber, String keyword) {
-        return null;
+        int responseCode = Constant.RESULT_CD_FAIL;
+        String responseMsg = StringUtils.EMPTY;
+        Map<String, Object> rpMap = new HashMap<>();
+        try {
+            Sort sort = Sort.by(Sort.Direction.ASC, "brandName");
+            Pageable pageable = PageRequest.of(pageNumber -1, Constant.PAGE_SIZE,sort);
+            Page<BrandEntity> brandEntitiesPage = brandDao.findByBrandNameLike("%" + keyword + "%",pageable);
+            rpMap.put("brandsList", brandEntitiesPage.getContent());
+            rpMap.put("paginationInfo", new PagerModel(pageNumber, brandEntitiesPage.getTotalPages()));
+            rpMap.put("totalItem", brandEntitiesPage.getTotalElements());
+            responseCode = Constant.RESULT_CD_SUCCESS;
+            responseMsg = "ResultSet has " + brandEntitiesPage.getTotalElements() + " products";
+        } catch (Exception e) {
+            responseMsg = e.getMessage();
+            LOGGER.error("Error when get all product: ", e);
+        }
+        return new ResponseDataModel(responseCode, responseMsg, rpMap);
     }
 }
