@@ -28,8 +28,8 @@ public class ProductEntity {
     @Column(name = "PRICE", nullable = true)
     private double price;
 
-    @Column(name = "BRAND_ID", nullable = true)
-    private int brandId;
+//    @Column(name = "BRAND_ID", nullable = true)
+//    private int brandId;
 
     @Column(name = "SALE_DATE", nullable = true)
     private String saleDate;
@@ -39,6 +39,10 @@ public class ProductEntity {
 
     @Column(name = "DESCRIPTION", nullable = true)
     private String description;
+
+    @JoinColumn(name = "BRAND_ID", referencedColumnName = "BRAND_ID")
+    @ManyToOne(fetch = FetchType.EAGER)
+    private BrandEntity brandEntity;
 
     @Transient
     private MultipartFile[] imageFiles;

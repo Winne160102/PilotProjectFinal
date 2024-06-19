@@ -30,30 +30,17 @@
   <table class="table table-bordered" id="productInfoTable">
     <thead>
     <tr class="text-center">
-      <th scope="col">#</th>
       <th scope="col">Name</th>
+      <th scope="col">Quantity</th>
+      <th scope="col" class="price">Price</th>
+      <th scope="col" class="sale-date">Sale Date</th>
+      <th scope="col">Brand Name</th>
       <th scope="col">Image</th>
       <th scope="col">Description</th>
-      <th scope="col">Price</th>
       <th scope="col">Actions</th>
     </tr>
     </thead>
-    <tbody id="myTable">
-    <c:forEach var="product" items="${products}">
-      <tr>
-        <td>${product.productId}</td>
-        <td>${product.productName}</td>
-        <td>
-          <img src="${product.image}" alt="Product Image" style="width:50px;height:50px;">
-        </td>
-        <td>${product.description}</td>
-        <td>${product.price}</td>
-        <td>
-          <button class="btn btn-primary edit-product-btn" data-product-id="${product.productId}">Edit</button>
-          <button class="btn btn-danger delete-product-btn" data-product-id="${product.productId}">Delete</button>
-        </td>
-      </tr>
-    </c:forEach>
+    <tbody>
     </tbody>
   </table>
 
@@ -75,7 +62,7 @@
     <div class="modal-content">
       <form id="productInfoForm" role="form" enctype="multipart/form-data">
         <div class="modal-header">
-          <h5 class="modal-title">Add Product</h5>
+          <h5 class="modal-title">Add/Edit Product</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
@@ -105,6 +92,14 @@
             <label for="price">Price <span class="required-mask">(*)</span></label>
             <input type="text" class="form-control" id="price" name="price" placeholder="Price">
           </div>
+          <div class="form-group">
+            <label for="quantity">Quantity <span class="required-mask">(*)</span></label>
+            <input type="text" class="form-control" id="quantity" name="quantity" placeholder="Quantity">
+          </div>
+          <div class="form-group">
+            <label for="brandId">Brand ID <span class="required-mask">(*)</span></label>
+            <input type="text" class="form-control" id="brandId" name="brandId" placeholder="Brand ID">
+          </div>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
@@ -115,26 +110,27 @@
   </div>
 </div>
 
-<!-- Modal Confirm Deleting Product -->
-<div class="modal fade" id="confirmDeleteModal">
+<!-- Modal Confirm Delete -->
+<div class="modal fade" id="confirmDeleteModal" tabindex="-1" role="dialog" aria-labelledby="confirmDeleteModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title">Delete Product</h5>
+        <h5 class="modal-title" id="confirmDeleteModalLabel">Confirm Delete</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Do you want to delete <b class="product-name"></b>?</p>
+        Are you sure you want to delete <span class="product-name font-weight-bold"></span>?
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-        <button type="button" class="btn btn-primary" id="deleteSubmitBtn">Delete</button>
+        <button type="button" class="btn btn-danger" id="deleteSubmitBtn">Delete</button>
       </div>
     </div>
   </div>
 </div>
+
 <jsp:include page="../common/footer.jsp" />
 <script src="<c:url value='/js/base.js'/>"></script>
 <script src="<c:url value='/js/product.js'/>"></script>

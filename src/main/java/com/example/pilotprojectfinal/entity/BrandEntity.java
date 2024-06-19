@@ -1,11 +1,13 @@
 package com.example.pilotprojectfinal.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "BRAND")
@@ -27,6 +29,18 @@ public class BrandEntity {
 
     @Column(name = "LOGO", nullable = true)
     private String logo;
+
+    @JsonIgnore
+    @OneToMany(mappedBy = "brandEntity", fetch = FetchType.LAZY)
+    private Set<ProductEntity> productSet;
+
+    public Set<ProductEntity> getProductSet() {
+        return productSet;
+    }
+
+    public void setProductSet(Set<ProductEntity> productSet) {
+        this.productSet = productSet;
+    }
 
     @Transient
     private MultipartFile[] logoFiles;
